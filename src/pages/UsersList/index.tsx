@@ -4,19 +4,15 @@ import gql from 'graphql-tag';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 
 import './styles.css';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  secondary_phone: string;
-  avatar_url: string;
   status: 'new' | 'active' | 'inactive';
   type: 'adm' | 'advertiser' | 'user';
-  plan: {
-    name: string;
-  };
 }
 
 interface IQueryData {
@@ -77,7 +73,9 @@ const UsersList: React.FC = () => {
               <td>{user.type}</td>
               <td>{user.status}</td>
               <td className="table-options">
-                <FiEdit />
+                <Link to={`/users/${user.id}`}>
+                  <FiEdit />
+                </Link>
                 <FiTrash />
               </td>
             </tr>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FiEdit, FiTrash } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
@@ -84,7 +85,9 @@ const AdvertisementsList: React.FC = () => {
               <td>{advertisement.user.name}</td>
               <td>{advertisement.status ? 'Ativo' : 'Inativo'}</td>
               <td className="table-options">
-                <FiEdit />
+                <Link to={`/advertisements/${advertisement.id}`}>
+                  <FiEdit />
+                </Link>
                 <FiTrash />
               </td>
             </tr>

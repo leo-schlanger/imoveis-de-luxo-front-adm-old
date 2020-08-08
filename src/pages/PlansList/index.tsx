@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FiEdit, FiTrash } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
@@ -60,7 +61,9 @@ const PlansList: React.FC = () => {
               <td>{plan.name}</td>
               <td>{plan.value}</td>
               <td className="table-options">
-                <FiEdit />
+                <Link to={`/plans/${plan.id}`}>
+                  <FiEdit />
+                </Link>
                 <FiTrash />
               </td>
             </tr>
