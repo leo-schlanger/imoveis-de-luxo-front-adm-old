@@ -1,0 +1,21 @@
+#plans-list-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.plans-list-table {
+  border-collapse: collapse;
+  align-self: center;
+  width: 80%;
+  margin-bottom: 30rem;
+}
+
+.plans-list-table th, td {
+  padding: 0.8rem;
+  font-size: 1.8rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
