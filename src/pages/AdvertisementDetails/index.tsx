@@ -21,7 +21,7 @@ interface Advertisement {
 
 const AdvertisementDetails: React.FC = () => {
   const [advertisement, setAdvertisement] = useState<Advertisement>();
-  const { _, id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     api
