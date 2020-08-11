@@ -56,7 +56,7 @@ const PlansList: React.FC = () => {
         </tr>
         {data &&
           data.plans.map((plan) => (
-            <tr>
+            <tr key={plan.id}>
               <td>{plan.id}</td>
               <td>{plan.name}</td>
               <td>{plan.value}</td>

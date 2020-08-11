@@ -7,10 +7,18 @@
 }
 
 .users-list-table {
-  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   align-self: center;
   width: 80%;
   margin-bottom: 30rem;
+}
+
+.users-list-table table {
+  border-collapse: collapse;
+  width: 100%;
+  align-self: center;
 }
 
 .users-list-table th, td {
@@ -18,4 +26,26 @@
   font-size: 1.8rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
+}
+
+.users-list-table >div {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.2rem;
+  width: 100%;
+  margin-left: auto;
+  margin-top: 1.6rem;
+}
+
+.users-list-table div button {
+  background: transparent;
+  border: 0;
+}
+
+.users-list-table div p {
+  font-size: 2.4rem;
+  text-align: center;
 }

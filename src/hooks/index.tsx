@@ -5,9 +5,7 @@ import ApolloProvider from './apollo';
 
 const AppProvider: React.FC = ({ children }) => (
   <ApolloProvider>
-    <AuthProvider>
-      {children}
-    </AuthProvider>
+    <AuthProvider>{children}</AuthProvider>
   </ApolloProvider>
 );
 
