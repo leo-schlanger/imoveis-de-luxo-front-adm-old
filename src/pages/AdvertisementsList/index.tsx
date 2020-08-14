@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { FiEdit, FiTrash, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
+
+import { FIND_ADVERTISEMENTS } from '../../utils/graphqlCommands';
 
 import './styles.css';
 
@@ -27,25 +28,6 @@ interface IQueryData {
     total: number;
   };
 }
-
-const FIND_ADVERTISEMENTS = gql`
-  query findAdvertisements($per_page: Int, $page: Int) {
-    advertisements(data: { per_page: $per_page, page: $page }) {
-      list {
-        id
-        title
-        type
-        property {
-          type
-        }
-        user {
-          name
-        }
-      }
-      total
-    }
-  }
-`;
 
 const AdvertisementsList: React.FC = () => {
   const [page, setPage] = useState(1);

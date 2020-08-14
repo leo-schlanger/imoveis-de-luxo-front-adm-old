@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { Link } from 'react-router-dom';
 import { FiEdit, FiTrash, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
-import './styles.css';
-import { Link } from 'react-router-dom';
+import { FIND_USERS } from '../../utils/graphqlCommands';
+
 import Header from '../../components/Header';
+
+import './styles.css';
 
 interface User {
   id: string;
@@ -21,21 +23,6 @@ interface IQueryData {
     total: number;
   };
 }
-
-const FIND_USERS = gql`
-  query findUsers($per_page: Int, $page: Int) {
-    users(data: { per_page: $per_page, page: $page }) {
-      list {
-        id
-        name
-        email
-        type
-        status
-      }
-      total
-    }
-  }
-`;
 
 const UsersList: React.FC = () => {
   const [page, setPage] = useState(1);

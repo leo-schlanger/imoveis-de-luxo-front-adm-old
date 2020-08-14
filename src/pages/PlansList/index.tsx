@@ -1,10 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
+
+import { FIND_PLANS } from '../../utils/graphqlCommands';
 
 import './styles.css';
 
@@ -17,16 +18,6 @@ interface Plan {
 interface IQueryData {
   plans: Plan[];
 }
-
-const FIND_PLANS = gql`
-  query findPlans {
-    plans {
-      id
-      name
-      value
-    }
-  }
-`;
 
 const PlansList: React.FC = () => {
   const { data, loading, error } = useQuery<IQueryData>(FIND_PLANS);

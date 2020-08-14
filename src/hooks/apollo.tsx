@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { ApolloProvider as Apollo } from '@apollo/react-hooks';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
