@@ -81,6 +81,7 @@ const AdvertisementsList: React.FC = () => {
               <th>Nome</th>
               <th>Email</th>
               <th>Tipo</th>
+              <th>Anunciante</th>
               <th>Status</th>
               <th>Opções</th>
             </tr>
@@ -96,10 +97,14 @@ const AdvertisementsList: React.FC = () => {
                   <td>{advertisement.user.name}</td>
                   <td>{advertisement.status ? 'Ativo' : 'Inativo'}</td>
                   <td className="table-options">
-                    <Link to={`/advertisements/${advertisement.id}`}>
-                      <FiEdit />
-                    </Link>
-                    <FiTrash />
+                    <div>
+                      <Link to={`/advertisements/${advertisement.id}`}>
+                        <FiEdit />
+                      </Link>
+                      <button type="button" onClick={() => {}}>
+                        <FiTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

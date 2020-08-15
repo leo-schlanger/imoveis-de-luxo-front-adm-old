@@ -90,10 +90,14 @@ const UsersList: React.FC = () => {
                   <td>{user.type}</td>
                   <td>{user.status}</td>
                   <td className="table-options">
-                    <Link to={`/users/${user.id}`}>
-                      <FiEdit />
-                    </Link>
-                    <FiTrash />
+                    <div>
+                      <Link to={`/users/${user.id}`}>
+                        <FiEdit />
+                      </Link>
+                      <button type="button" onClick={() => {}}>
+                        <FiTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

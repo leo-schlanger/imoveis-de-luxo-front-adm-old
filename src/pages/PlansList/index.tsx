@@ -36,30 +36,40 @@ const PlansList: React.FC = () => {
   }
 
   return (
-    <div id="users-list-container">
+    <div id="plans-list-container">
       <Header />
-      <table className="users-list-table">
-        <tr>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Valor</th>
-          <th>Opções</th>
-        </tr>
-        {data &&
-          data.plans.map((plan) => (
-            <tr key={plan.id}>
-              <td>{plan.id}</td>
-              <td>{plan.name}</td>
-              <td>{plan.value}</td>
-              <td className="table-options">
-                <Link to={`/plans/${plan.id}`}>
-                  <FiEdit />
-                </Link>
-                <FiTrash />
-              </td>
+      <div className="plans-list-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nome</th>
+              <th>Valor</th>
+              <th>Opções</th>
             </tr>
-          ))}
-      </table>
+          </thead>
+          <tbody>
+            {data &&
+              data.plans.map((plan) => (
+                <tr key={plan.id}>
+                  <td>{plan.id}</td>
+                  <td>{plan.name}</td>
+                  <td>{plan.value}</td>
+                  <td className="table-options">
+                    <div>
+                      <Link to={`/plans/${plan.id}`}>
+                        <FiEdit />
+                      </Link>
+                      <button type="button" onClick={() => {}}>
+                        <FiTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
