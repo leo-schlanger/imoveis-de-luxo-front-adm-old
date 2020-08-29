@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { FiEdit, FiTrash, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
-import { FIND_ADVERTISEMENTS } from '../../utils/graphqlCommands';
+import {
+  FIND_ADVERTISEMENTS,
+  DELETE_ADVERTISEMENT,
+} from '../../utils/graphqlCommands';
 
 import './styles.css';
 
@@ -39,6 +42,7 @@ const AdvertisementsList: React.FC = () => {
       page,
     },
   });
+  const [deleteAdvertisement] = useMutation(DELETE_ADVERTISEMENT);
 
   if (loading) {
     return <h1>Carregando anúncios...</h1>;
@@ -101,7 +105,15 @@ const AdvertisementsList: React.FC = () => {
                       <Link to={`/advertisements/${advertisement.id}`}>
                         <FiEdit />
                       </Link>
-                      <button type="button" onClick={() => {}}>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await deleteAdvertisement({
+                            variables: { id: advertisement.id },
+                          });
+                          window.location.reload(false);
+                        }}
+                      >
                         <FiTrash />
                       </button>
                     </div>

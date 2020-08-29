@@ -1,11 +1,11 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 
-import { FIND_PLANS } from '../../utils/graphqlCommands';
+import { FIND_PLANS, DELETE_PLAN } from '../../utils/graphqlCommands';
 
 import './styles.css';
 
@@ -21,6 +21,7 @@ interface IQueryData {
 
 const PlansList: React.FC = () => {
   const { data, loading, error } = useQuery<IQueryData>(FIND_PLANS);
+  const [deletePlan] = useMutation(DELETE_PLAN);
 
   if (loading) {
     return <h1>Carregando planos...</h1>;
@@ -60,7 +61,13 @@ const PlansList: React.FC = () => {
                       <Link to={`/plans/${plan.id}`}>
                         <FiEdit />
                       </Link>
-                      <button type="button" onClick={() => {}}>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await deletePlan({ variables: { id: plan.id } });
+                          window.location.reload(false);
+                        }}
+                      >
                         <FiTrash />
                       </button>
                     </div>

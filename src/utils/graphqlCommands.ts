@@ -19,6 +19,12 @@ export const FIND_ADVERTISEMENTS = gql`
   }
 `;
 
+export const DELETE_ADVERTISEMENT = gql`
+  mutation deleteAdvertisement($id: String!) {
+    deleteAdvertisement(id: $id)
+  }
+`;
+
 export const FIND_USERS = gql`
   query findUsers($per_page: Int, $page: Int) {
     users(data: { per_page: $per_page, page: $page }) {
@@ -34,6 +40,12 @@ export const FIND_USERS = gql`
   }
 `;
 
+export const DELETE_USER = gql`
+  mutation deleteUser($id: String!) {
+    deleteUser(id: $id)
+  }
+`;
+
 export const FIND_PLANS = gql`
   query findPlans {
     plans {
@@ -41,5 +53,11 @@ export const FIND_PLANS = gql`
       name
       value
     }
+  }
+`;
+
+export const DELETE_PLAN = gql`
+  mutation deletePlan($id: String!) {
+    deletePlan(id: $id)
   }
 `;

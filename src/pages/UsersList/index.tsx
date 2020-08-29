@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
 import { FiEdit, FiTrash, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
-import { FIND_USERS } from '../../utils/graphqlCommands';
+import { FIND_USERS, DELETE_USER } from '../../utils/graphqlCommands';
 
 import Header from '../../components/Header';
 
@@ -34,6 +34,7 @@ const UsersList: React.FC = () => {
       page,
     },
   });
+  const [deleteUser] = useMutation(DELETE_USER);
 
   if (loading) {
     return <h1>Carregando usuários...</h1>;
@@ -94,7 +95,13 @@ const UsersList: React.FC = () => {
                       <Link to={`/users/${user.id}`}>
                         <FiEdit />
                       </Link>
-                      <button type="button" onClick={() => {}}>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await deleteUser({ variables: { id: user.id } });
+                          window.location.reload(false);
+                        }}
+                      >
                         <FiTrash />
                       </button>
                     </div>
