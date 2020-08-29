@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import api from '../../services/api';
+import api, { Plan } from '../../services/api';
 
 import './styles.css';
 import Header from '../../components/Header';
-
-interface Plan {
-  id: string;
-  name: string;
-  description: string;
-  quantity_properties: number;
-  quantity_photos: number;
-  quantity_videos: number;
-  value: number;
-  created_at: Date;
-  updated_at: Date;
-}
 
 const PlanDetails: React.FC = () => {
   const [plan, setPlan] = useState<Plan>();

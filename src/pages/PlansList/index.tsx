@@ -23,13 +23,13 @@ const PlansList: React.FC = () => {
   const { data, loading, error } = useQuery<IQueryData>(FIND_PLANS);
 
   if (loading) {
-    return <h1>Carregando anúncios...</h1>;
+    return <h1>Carregando planos...</h1>;
   }
 
   if (error) {
     return (
       <div>
-        <h1>Ocorreu um erro ao carregar lista de anúncios</h1>
+        <h1>Ocorreu um erro ao carregar lista de planos</h1>
         <p>{error.message}</p>
       </div>
     );
