@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 
 const UserDetails: React.FC = () => {
   const [user, setUser] = useState<User>();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     api.get(`users/${id}`).then((response) => setUser(response.data));

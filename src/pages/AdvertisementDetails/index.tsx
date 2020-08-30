@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 
 const AdvertisementDetails: React.FC = () => {
   const [advertisement, setAdvertisement] = useState<Advertisement>();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     api

@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 
 const PlanDetails: React.FC = () => {
   const [plan, setPlan] = useState<Plan>();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     api.get(`plans/${id}`).then((response) => setPlan(response.data));
