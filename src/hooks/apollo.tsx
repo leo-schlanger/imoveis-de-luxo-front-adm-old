@@ -1,6 +1,10 @@
 import React from 'react';
-import { ApolloProvider as Apollo } from '@apollo/react-hooks';
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import {
+  ApolloProvider as Apollo,
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+} from '@apollo/react-hooks';
 
 const ApolloProvider: React.FC = ({ children }) => {
   const client = new ApolloClient({

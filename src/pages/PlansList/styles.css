@@ -4,52 +4,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.plans-list-table {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  align-self: center;
-  width: 80%;
-  margin-bottom: 30rem;
 }
 
-.plans-list-table table {
-  border-collapse: collapse;
-  width: 100%;
-  align-self: center;
-}
-
-.plans-list-table th,
-td {
-  padding: 0.8rem;
-  font-size: 1.8rem;
-  text-align: left;
-  border-bottom: 1px solid var(--color-primary-100);
-}
-
-.plans-list-table .table-options div {
+.table-options {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-.plans-list-table .table-options div button {
+.table-options button {
   cursor: pointer;
   margin-left: 1.2rem;
   background: transparent;
   border: 0;
 }
 
-.plans-list-table .table-options div button:hover {
+.table-options button:hover {
   color: var(--color-danger-500);
 }
 
-.plans-list-table .table-options div a {
+.table-options a {
   color: var(--color-primary-100);
 }
 
-.plans-list-table .table-options div a:hover {
+.table-options a:hover {
   color: var(--color-info-500);
 }

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { Link } from 'react-router-dom';
-import { FiEdit, FiTrash, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { FiEdit, FiTrash } from 'react-icons/fi';
+import { Modal, Button } from 'rsuite';
 
 import { FIND_USERS, DELETE_USER } from '../../utils/graphqlCommands';
 
 import Header from '../../components/Header';
+import Table from '../../components/Table';
 
 import './styles.css';
 
@@ -27,8 +29,10 @@ interface IQueryData {
 const UsersList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [per_page, setPerPage] = useState(20);
+  const [modalDeleteView, setModalDeleteView] = useState(false);
+  const [selected, setSelected] = useState('');
 
-  const { data, loading, error } = useQuery<IQueryData>(FIND_USERS, {
+  const { data, loading, error, refetch } = useQuery<IQueryData>(FIND_USERS, {
     variables: {
       per_page,
       page,
@@ -36,9 +40,47 @@ const UsersList: React.FC = () => {
   });
   const [deleteUser] = useMutation(DELETE_USER);
 
-  if (loading) {
-    return <h1>Carregando usuários...</h1>;
-  }
+  const handleChangePage = (newPage: number): void => {
+    setPage(newPage);
+  };
+
+  const handleChangeLength = (newPerPage: number): void => {
+    setPerPage(newPerPage);
+  };
+
+  const handleDelete = async (id: string): Promise<void> => {
+    await deleteUser({ variables: { id } });
+    refetch();
+    setModalDeleteView(false);
+  };
+
+  const userFields = [
+    { dataKey: 'id', display: 'Id', flexGrow: 3 },
+    { dataKey: 'name', display: 'Nome', flexGrow: 2 },
+    { dataKey: 'email', display: 'E-mail', flexGrow: 2 },
+    { dataKey: 'status', display: 'Status', flexGrow: 1 },
+    { dataKey: 'type', display: 'Tipo', flexGrow: 1 },
+    {
+      body: (rowData: User) => (
+        <div className="table-options">
+          <Link to={`/users/${rowData.id}`}>
+            <FiEdit />
+          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setSelected(rowData.id);
+              setModalDeleteView(true);
+            }}
+          >
+            <FiTrash />
+          </button>
+        </div>
+      ),
+      display: 'Opções',
+      flexGrow: 1,
+    },
+  ];
 
   if (error) {
     return (
@@ -52,82 +94,34 @@ const UsersList: React.FC = () => {
   return (
     <div id="users-list-container">
       <Header />
-      <div className="users-list-table">
-        <div>
-          <p>Quantidade por página:</p>
-          <select
-            name="per_page"
-            id="per_page"
-            value={per_page}
-            onChange={(event) => {
-              setPerPage(parseInt(event.target.value, 10));
-              setPage(1);
-            }}
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Tipo</th>
-              <th>Status</th>
-              <th>Opções</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data &&
-              data.users.list.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.type}</td>
-                  <td>{user.status}</td>
-                  <td className="table-options">
-                    <div>
-                      <Link to={`/users/${user.id}`}>
-                        <FiEdit />
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          await deleteUser({ variables: { id: user.id } });
-                          window.location.reload(false);
-                        }}
-                      >
-                        <FiTrash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <div>
-          <button
-            disabled={page === 1}
-            type="button"
-            onClick={() => setPage((status) => status - 1)}
-          >
-            <FiArrowLeft size={24} />
-          </button>
-          <div>{data && <p>{data.users.total}</p>}</div>
-          <button
-            disabled={!data || page >= data.users.total / per_page}
-            type="button"
-            onClick={() => setPage((status) => status + 1)}
-          >
-            <FiArrowRight size={24} />
-          </button>
-        </div>
-      </div>
+      <Table
+        list={data?.users.list}
+        total={data?.users.total}
+        loading={loading}
+        page={page}
+        perPage={per_page}
+        fields={userFields}
+        handleChangePage={handleChangePage}
+        handleChangeLength={handleChangeLength}
+      />
+      <Modal
+        backdrop="static"
+        show={modalDeleteView}
+        onHide={() => setModalDeleteView(false)}
+        size="xs"
+      >
+        <Modal.Body style={{ color: 'black' }}>
+          Deseja remover esse usuário do sistema?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => handleDelete(selected)} appearance="primary">
+            Ok
+          </Button>
+          <Button onClick={() => setModalDeleteView(false)} appearance="subtle">
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

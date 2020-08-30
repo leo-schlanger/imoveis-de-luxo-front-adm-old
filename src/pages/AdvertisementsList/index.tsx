@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { FiEdit, FiTrash, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'rsuite';
 
 import Header from '../../components/Header';
 
@@ -11,6 +12,7 @@ import {
 } from '../../utils/graphqlCommands';
 
 import './styles.css';
+import Table from '../../components/Table';
 
 interface Advertisement {
   id: string;
@@ -35,18 +37,76 @@ interface IQueryData {
 const AdvertisementsList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [per_page, setPerPage] = useState(20);
+  const [modalDeleteView, setModalDeleteView] = useState(false);
+  const [selected, setSelected] = useState('');
 
-  const { data, loading, error } = useQuery<IQueryData>(FIND_ADVERTISEMENTS, {
-    variables: {
-      per_page,
-      page,
+  const { data, loading, error, refetch } = useQuery<IQueryData>(
+    FIND_ADVERTISEMENTS,
+    {
+      variables: {
+        per_page,
+        page,
+      },
     },
-  });
+  );
   const [deleteAdvertisement] = useMutation(DELETE_ADVERTISEMENT);
 
-  if (loading) {
-    return <h1>Carregando anúncios...</h1>;
-  }
+  const advertisementFields = [
+    { dataKey: 'id', display: 'Id', flexGrow: 3 },
+    { dataKey: 'title', display: 'Título', flexGrow: 2 },
+    { dataKey: 'type', display: 'Tipo de anúncio', flexGrow: 1 },
+    {
+      body: (rowData: Advertisement) => <div>{rowData.property.type}</div>,
+      display: 'Tipo de propriedade',
+      flexGrow: 1,
+    },
+    {
+      body: (rowData: Advertisement) => <div>{rowData.user.name}</div>,
+      display: 'Anunciante',
+      flexGrow: 1,
+    },
+    {
+      body: (rowData: Advertisement) => (
+        <div>{rowData.status ? 'Ativo' : 'Inativo'}</div>
+      ),
+      display: 'Status',
+      flexGrow: 1,
+    },
+    {
+      body: (rowData: Advertisement) => (
+        <div className="table-options">
+          <Link to={`/users/${rowData.id}`}>
+            <FiEdit />
+          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setSelected(rowData.id);
+              setModalDeleteView(true);
+            }}
+          >
+            <FiTrash />
+          </button>
+        </div>
+      ),
+      display: 'Opções',
+      flexGrow: 1,
+    },
+  ];
+
+  const handleChangePage = (newPage: number): void => {
+    setPage(newPage);
+  };
+
+  const handleChangeLength = (newPerPage: number): void => {
+    setPerPage(newPerPage);
+  };
+
+  const handleDelete = async (id: string): Promise<void> => {
+    await deleteAdvertisement({ variables: { id } });
+    refetch();
+    setModalDeleteView(false);
+  };
 
   if (error) {
     return (
@@ -60,86 +120,34 @@ const AdvertisementsList: React.FC = () => {
   return (
     <div id="users-list-container">
       <Header />
-      <div className="users-list-table">
-        <div>
-          <p>Quantidade por página:</p>
-          <select
-            name="per_page"
-            id="per_page"
-            value={per_page}
-            onChange={(event) => {
-              setPerPage(parseInt(event.target.value, 10));
-              setPage(1);
-            }}
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Tipo</th>
-              <th>Anunciante</th>
-              <th>Status</th>
-              <th>Opções</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data &&
-              data.advertisements.list.map((advertisement) => (
-                <tr key={advertisement.id}>
-                  <td>{advertisement.id}</td>
-                  <td>{advertisement.title}</td>
-                  <td>{advertisement.type}</td>
-                  <td>{advertisement.property.type}</td>
-                  <td>{advertisement.user.name}</td>
-                  <td>{advertisement.status ? 'Ativo' : 'Inativo'}</td>
-                  <td className="table-options">
-                    <div>
-                      <Link to={`/advertisements/${advertisement.id}`}>
-                        <FiEdit />
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          await deleteAdvertisement({
-                            variables: { id: advertisement.id },
-                          });
-                          window.location.reload(false);
-                        }}
-                      >
-                        <FiTrash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <div>
-          <button
-            disabled={page === 1}
-            type="button"
-            onClick={() => setPage((status) => status - 1)}
-          >
-            <FiArrowLeft size={24} />
-          </button>
-          <div>{data && <p>{data.advertisements.total}</p>}</div>
-          <button
-            disabled={!data || page >= data.advertisements.total / per_page}
-            type="button"
-            onClick={() => setPage((status) => status + 1)}
-          >
-            <FiArrowRight size={24} />
-          </button>
-        </div>
-      </div>
+      <Table
+        list={data?.advertisements.list}
+        total={data?.advertisements.total}
+        loading={loading}
+        page={page}
+        perPage={per_page}
+        fields={advertisementFields}
+        handleChangePage={handleChangePage}
+        handleChangeLength={handleChangeLength}
+      />
+      <Modal
+        backdrop="static"
+        show={modalDeleteView}
+        onHide={() => setModalDeleteView(false)}
+        size="xs"
+      >
+        <Modal.Body style={{ color: 'black' }}>
+          Deseja remover esse anúncio do sistema?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => handleDelete(selected)} appearance="primary">
+            Ok
+          </Button>
+          <Button onClick={() => setModalDeleteView(false)} appearance="subtle">
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

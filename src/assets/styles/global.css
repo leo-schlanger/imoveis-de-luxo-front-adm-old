@@ -104,7 +104,7 @@ body,
 button,
 input,
 textarea {
-  font: 500 1.6rem Poppins;
+  font: 500 1.6rem Roboto;
   color: var(--color-primary-200);
 }
 
