@@ -65,7 +65,7 @@ const Table: React.FC<ITableData> = ({
         hover={false}
       >
         {fields.map((item) => (
-          <Column flexGrow={item.flexGrow}>
+          <Column key={item.dataKey} flexGrow={item.flexGrow}>
             <HeaderCell
               style={{
                 background: 'var(--color-primary-900)',

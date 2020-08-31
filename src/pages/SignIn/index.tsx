@@ -29,13 +29,14 @@ const SignIn: React.FC = () => {
   const onSubmit = useCallback(
     async (data: IFormInput): Promise<void> => {
       try {
-        console.log(data);
         await signIn({
           email: data.email,
           password: data.password,
         });
         // eslint-disable-next-line no-empty
-      } catch (err) {}
+      } catch (err) {
+        console.log({ err });
+      }
     },
     [signIn],
   );
