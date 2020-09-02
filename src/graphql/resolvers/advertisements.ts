@@ -1,5 +1,27 @@
 import gql from 'graphql-tag';
 
+// export enum AdvertisementTypeEnum {
+//   'PURCHASE',
+//   'TENANCY',
+// }
+
+// export enum PropertyTypeEnum {
+//   'HOME',
+//   'APARTMENT',
+//   'PENTHOUSE',
+//   'GRANGE',
+//   'FARM',
+//   'TERRAIN',
+//   'SHED',
+//   'CORPORATE',
+//   'OFFICE',
+//   'STORE',
+//   'HOTEL',
+//   'INN',
+//   'ISLAND',
+//   'CUSTOMIZED',
+// }
+
 export const FIND_ADVERTISEMENTS = gql`
   query findAdvertisements($per_page: Int, $page: Int) {
     advertisements(data: { per_page: $per_page, page: $page }) {
@@ -22,5 +44,48 @@ export const FIND_ADVERTISEMENTS = gql`
 export const DELETE_ADVERTISEMENT = gql`
   mutation deleteAdvertisement($id: String!) {
     deleteAdvertisement(id: $id)
+  }
+`;
+
+export const CREATE_ADVERTISEMENT = gql`
+  mutation createAdvertisement(
+    $title: String!
+    $description: String
+    $status: Boolean!
+    $type: AdvertisementTypeEnum!
+    $address_visible: Boolean!
+    $type_property: PropertyTypeEnum!
+    $value: Float!
+    $country: String!
+    $state: String!
+    $postal_code: String!
+    $neighborhood: String!
+    $number: String
+    $complement: String
+    $address: String!
+  ) {
+    createAdvertisement(
+      data: {
+        title: $title
+        description: $description
+        status: $status
+        type: $type
+        address_visible: $address_visible
+        property: {
+          type: $type_property
+          value: $value
+          country: $country
+          state: $state
+          postal_code: $postal_code
+          neighborhood: $neighborhood
+          number: $number
+          complement: $complement
+          address: $address
+        }
+      }
+    ) {
+      id
+      title
+    }
   }
 `;
