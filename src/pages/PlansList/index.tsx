@@ -6,7 +6,7 @@ import { Modal, Button, Table } from 'rsuite';
 
 import Header from '../../components/Header';
 
-import { FIND_PLANS, DELETE_PLAN } from '../../utils/graphqlCommands';
+import { DELETE_PLAN, FIND_PLANS } from '../../graphql/resolvers/plans';
 
 import '../../assets/styles/rsuite-custom.css';
 import '../../components/Table/styles.css';

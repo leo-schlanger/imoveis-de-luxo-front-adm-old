@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Modal, Button } from 'rsuite';
 
-import { FIND_USERS, DELETE_USER } from '../../utils/graphqlCommands';
+import { FIND_USERS, DELETE_USER } from '../../graphql/resolvers/users';
 
 import Header from '../../components/Header';
 import Table from '../../components/Table';

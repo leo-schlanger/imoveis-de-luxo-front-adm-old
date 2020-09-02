@@ -6,13 +6,13 @@ import { Modal, Button } from 'rsuite';
 
 import Header from '../../components/Header';
 
+import './styles.css';
+import Table from '../../components/Table';
+
 import {
   FIND_ADVERTISEMENTS,
   DELETE_ADVERTISEMENT,
-} from '../../utils/graphqlCommands';
-
-import './styles.css';
-import Table from '../../components/Table';
+} from '../../graphql/resolvers/advertisements';
 
 interface Advertisement {
   id: string;
