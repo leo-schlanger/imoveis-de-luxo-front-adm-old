@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 
 import logoImg from '../../assets/images/logo.svg';
+import { schemaSignIn } from '../../utils/yupValidations';
 import { useAuth } from '../../hooks/auth';
 
 import './styles.css';
@@ -13,16 +13,9 @@ interface IFormInput {
   password: string;
 }
 
-const schema = Yup.object().shape({
-  email: Yup.string()
-    .required('E-mail obrigatório')
-    .email('Digite um e-mail válido'),
-  password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-});
-
 const SignIn: React.FC = () => {
   const { register, handleSubmit, errors } = useForm<IFormInput>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaSignIn),
   });
   const { signIn } = useAuth();
 
@@ -33,8 +26,8 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
-        // eslint-disable-next-line no-empty
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.log({ err });
       }
     },

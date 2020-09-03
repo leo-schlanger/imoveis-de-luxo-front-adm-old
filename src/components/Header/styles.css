@@ -1,7 +1,6 @@
 #header-container {
   width: 100vw;
-  height: 25vh;
-  margin-bottom: 3.6rem;
+  height: 20vh;
 }
 
 #header-container ul {
@@ -37,7 +36,7 @@
   margin-left: auto;
 }
 
-.logout-field button{
+.logout-field button {
   background: transparent;
   border: none;
   width: 3.6rem;
@@ -45,13 +44,13 @@
   cursor: pointer;
 }
 
-.logout-field svg{
+.logout-field svg {
   align-self: center;
   color: #fff;
   width: 2.4rem;
   height: 2.4rem;
 }
 
-.logout-field:hover{
+.logout-field:hover {
   background-color: #111;
 }

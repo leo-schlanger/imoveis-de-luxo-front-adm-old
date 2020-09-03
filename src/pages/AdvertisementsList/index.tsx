@@ -101,6 +101,7 @@ const AdvertisementsList: React.FC = () => {
   return (
     <div id="users-list-container">
       <Header />
+      <Link to="create-advertisement">Cria novo anúncio</Link>
       <Table
         list={data?.advertisements.list}
         total={data?.advertisements.total}

@@ -17,7 +17,7 @@ const AdvertisementDetails: React.FC = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="advertisement-details-container">
       <Header />
       <h1>params id: {id}</h1>
       <h1>{advertisement?.title}</h1>

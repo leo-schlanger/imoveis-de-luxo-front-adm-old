@@ -101,11 +101,17 @@ body {
 }
 
 body,
-button,
-input,
-textarea {
+button {
   font: 500 1.6rem Roboto;
   color: var(--color-primary-200);
+}
+
+
+input,
+textarea,
+select {
+  font: 500 1.6rem Roboto;
+  color: var(--color-primary-500);
 }
 
 .container {
