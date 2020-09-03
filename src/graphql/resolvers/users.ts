@@ -1,4 +1,12 @@
 import gql from 'graphql-tag';
+import { IUser } from '../entities/user';
+
+export interface IQueryUsersListData {
+  users: {
+    list: IUser[];
+    total: number;
+  };
+}
 
 export const FIND_USERS = gql`
   query findUsers($per_page: Int, $page: Int) {

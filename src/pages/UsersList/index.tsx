@@ -4,27 +4,17 @@ import { Link } from 'react-router-dom';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Modal, Button } from 'rsuite';
 
-import { FIND_USERS, DELETE_USER } from '../../graphql/resolvers/users';
+import {
+  FIND_USERS,
+  DELETE_USER,
+  IQueryUsersListData,
+} from '../../graphql/resolvers/users';
 
 import Header from '../../components/Header';
 import Table from '../../components/Table';
 
 import './styles.css';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  status: 'new' | 'active' | 'inactive';
-  type: 'adm' | 'advertiser' | 'user';
-}
-
-interface IQueryData {
-  users: {
-    list: User[];
-    total: number;
-  };
-}
+import { IUser } from '../../graphql/entities/user';
 
 const UsersList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -32,12 +22,15 @@ const UsersList: React.FC = () => {
   const [modalDeleteView, setModalDeleteView] = useState(false);
   const [selected, setSelected] = useState('');
 
-  const { data, loading, error, refetch } = useQuery<IQueryData>(FIND_USERS, {
-    variables: {
-      per_page,
-      page,
+  const { data, loading, error, refetch } = useQuery<IQueryUsersListData>(
+    FIND_USERS,
+    {
+      variables: {
+        per_page,
+        page,
+      },
     },
-  });
+  );
   const [deleteUser] = useMutation(DELETE_USER);
 
   const handleChangePage = (newPage: number): void => {
@@ -61,7 +54,7 @@ const UsersList: React.FC = () => {
     { dataKey: 'status', display: 'Status', flexGrow: 1 },
     { dataKey: 'type', display: 'Tipo', flexGrow: 1 },
     {
-      body: (rowData: User) => (
+      body: (rowData: IUser) => (
         <div className="table-options">
           <Link to={`/users/${rowData.id}`}>
             <FiEdit />

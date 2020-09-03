@@ -1,26 +1,12 @@
 import gql from 'graphql-tag';
+import { IAdvertisement } from '../entities/advertisements';
 
-// export enum AdvertisementTypeEnum {
-//   'PURCHASE',
-//   'TENANCY',
-// }
-
-// export enum PropertyTypeEnum {
-//   'HOME',
-//   'APARTMENT',
-//   'PENTHOUSE',
-//   'GRANGE',
-//   'FARM',
-//   'TERRAIN',
-//   'SHED',
-//   'CORPORATE',
-//   'OFFICE',
-//   'STORE',
-//   'HOTEL',
-//   'INN',
-//   'ISLAND',
-//   'CUSTOMIZED',
-// }
+export interface IQueryAdvertisementsListData {
+  advertisements: {
+    list: IAdvertisement[];
+    total: number;
+  };
+}
 
 export const FIND_ADVERTISEMENTS = gql`
   query findAdvertisements($per_page: Int, $page: Int) {

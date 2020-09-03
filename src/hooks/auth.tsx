@@ -1,44 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  secondary_phone: string;
-  avatar_url: string;
-  responsible: string;
-  description: string;
-  creci: string;
-  status: 'new' | 'active' | 'inactive';
-  type: 'adm' | 'advertiser' | 'user';
-  plan: {
-    name: string;
-    description: string;
-    quantity_properties: number;
-    quantity_photos: number;
-    quantity_videos: number;
-    value: number;
-  };
-  plan_status: boolean;
-  address: {
-    country: string;
-    state: string;
-    postal_code: string;
-    neighborhood: string;
-    sub_neighborhood: string | undefined;
-    address: string;
-    number: string | undefined;
-    complement: string | undefined;
-    description: string | undefined;
-  };
-}
+import { IUser } from '../graphql/entities/user';
 
 interface AuthState {
   token: string;
-  user: User;
+  user: IUser;
 }
 
 interface SignInCredentials {
@@ -47,11 +14,11 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: User;
+  user: IUser;
   token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
-  updateUser(user: User): void;
+  updateUser(user: IUser): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -98,7 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const updateUser = useCallback(
-    (user: User) => {
+    (user: IUser) => {
       localStorage.setItem('@ImoveisDeLuxoAdm:user', JSON.stringify(user));
 
       setData({

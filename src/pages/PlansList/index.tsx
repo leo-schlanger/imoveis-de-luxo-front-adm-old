@@ -6,21 +6,16 @@ import { Modal, Button, Table } from 'rsuite';
 
 import Header from '../../components/Header';
 
-import { DELETE_PLAN, FIND_PLANS } from '../../graphql/resolvers/plans';
+import {
+  DELETE_PLAN,
+  FIND_PLANS,
+  IQueryPlansListData,
+} from '../../graphql/resolvers/plans';
 
 import '../../assets/styles/rsuite-custom.css';
 import '../../components/Table/styles.css';
 import './styles.css';
-
-interface Plan {
-  id: string;
-  name: string;
-  value: number;
-}
-
-interface IQueryData {
-  plans: Plan[];
-}
+import { IPlan } from '../../graphql/entities/plan';
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -28,7 +23,9 @@ const PlansList: React.FC = () => {
   const [modalDeleteView, setModalDeleteView] = useState(false);
   const [selected, setSelected] = useState('');
 
-  const { data, loading, error, refetch } = useQuery<IQueryData>(FIND_PLANS);
+  const { data, loading, error, refetch } = useQuery<IQueryPlansListData>(
+    FIND_PLANS,
+  );
   const [deletePlan] = useMutation(DELETE_PLAN);
 
   const handleDelete = async (id: string): Promise<void> => {
@@ -111,7 +108,7 @@ const PlansList: React.FC = () => {
             </HeaderCell>
 
             <Cell>
-              {(rowData: Plan) => (
+              {(rowData: IPlan) => (
                 <div className="table-options">
                   <Link to={`/plans/${rowData.id}`}>
                     <FiEdit />

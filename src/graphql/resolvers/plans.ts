@@ -1,4 +1,9 @@
 import gql from 'graphql-tag';
+import { IPlan } from '../entities/plan';
+
+export interface IQueryPlansListData {
+  plans: IPlan[];
+}
 
 export const FIND_PLANS = gql`
   query findPlans {

@@ -12,27 +12,9 @@ import Table from '../../components/Table';
 import {
   FIND_ADVERTISEMENTS,
   DELETE_ADVERTISEMENT,
+  IQueryAdvertisementsListData,
 } from '../../graphql/resolvers/advertisements';
-
-interface Advertisement {
-  id: string;
-  title: string;
-  type: string;
-  status: boolean;
-  property: {
-    type: string;
-  };
-  user: {
-    name: string;
-  };
-}
-
-interface IQueryData {
-  advertisements: {
-    list: Advertisement[];
-    total: number;
-  };
-}
+import { IAdvertisement } from '../../graphql/entities/advertisements';
 
 const AdvertisementsList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -40,15 +22,14 @@ const AdvertisementsList: React.FC = () => {
   const [modalDeleteView, setModalDeleteView] = useState(false);
   const [selected, setSelected] = useState('');
 
-  const { data, loading, error, refetch } = useQuery<IQueryData>(
-    FIND_ADVERTISEMENTS,
-    {
-      variables: {
-        per_page,
-        page,
-      },
+  const { data, loading, error, refetch } = useQuery<
+    IQueryAdvertisementsListData
+  >(FIND_ADVERTISEMENTS, {
+    variables: {
+      per_page,
+      page,
     },
-  );
+  });
   const [deleteAdvertisement] = useMutation(DELETE_ADVERTISEMENT);
 
   const advertisementFields = [
@@ -56,24 +37,24 @@ const AdvertisementsList: React.FC = () => {
     { dataKey: 'title', display: 'Título', flexGrow: 2 },
     { dataKey: 'type', display: 'Tipo de anúncio', flexGrow: 1 },
     {
-      body: (rowData: Advertisement) => <div>{rowData.property.type}</div>,
+      body: (rowData: IAdvertisement) => <div>{rowData.property.type}</div>,
       display: 'Tipo de propriedade',
       flexGrow: 1,
     },
     {
-      body: (rowData: Advertisement) => <div>{rowData.user.name}</div>,
+      body: (rowData: IAdvertisement) => <div>{rowData.user.name}</div>,
       display: 'Anunciante',
       flexGrow: 1,
     },
     {
-      body: (rowData: Advertisement) => (
+      body: (rowData: IAdvertisement) => (
         <div>{rowData.status ? 'Ativo' : 'Inativo'}</div>
       ),
       display: 'Status',
       flexGrow: 1,
     },
     {
-      body: (rowData: Advertisement) => (
+      body: (rowData: IAdvertisement) => (
         <div className="table-options">
           <Link to={`/users/${rowData.id}`}>
             <FiEdit />
