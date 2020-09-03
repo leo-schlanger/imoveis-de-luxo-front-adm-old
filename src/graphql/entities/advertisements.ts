@@ -1,3 +1,5 @@
+import { IUser } from './user';
+
 export type AdvertisementType = 'PURCHASE' | 'TENANCY';
 
 export const advertisementTypeDescription = {
@@ -48,7 +50,5 @@ export interface IAdvertisement {
   property: {
     type: PropertyType;
   };
-  user: {
-    name: string;
-  };
+  user: IUser;
 }

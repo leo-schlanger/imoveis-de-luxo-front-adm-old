@@ -1,0 +1,39 @@
+#create-advertisement-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.create-advertisement-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 80vh;
+}
+
+.create-advertisement-form input {
+  width: 60%;
+  height: 3.6rem;
+  margin: 0.4rem
+}
+
+.create-advertisement-form p {
+  align-self: start;
+  font-size: 1.6rem;
+  margin-bottom: 1.6rem;
+  color: var(--color-danger-500);
+}
+
+.create-advertisement-form button {
+  width: 60%;
+  height: 3.6rem;
+  background: var(--color-primary-transparent-100);
+  transition: 0.2s;
+}
+
+.create-advertisement-form button:hover {
+  background: var(--color-primary-transparent-300);
+}

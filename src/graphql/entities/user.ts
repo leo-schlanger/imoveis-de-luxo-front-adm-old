@@ -1,3 +1,5 @@
+import { IPlan } from './plan';
+
 export type UserStatus = 'NEW' | 'ACTIVE' | 'INACTIVE';
 
 export const UserStatusDescription = {
@@ -28,14 +30,7 @@ export interface IUser {
   creci: string;
   status: UserStatus;
   type: UserType;
-  plan: {
-    name: string;
-    description: string;
-    quantity_properties: number;
-    quantity_photos: number;
-    quantity_videos: number;
-    value: number;
-  };
+  plan: IPlan;
   plan_status: boolean;
   address: {
     country: string;

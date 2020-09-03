@@ -46,6 +46,7 @@ const PlansList: React.FC = () => {
   return (
     <div id="plans-list-container">
       <Header />
+      <Link to="create-plan">Criar novo plano</Link>
       <div className="list-table">
         <Table
           width={window.innerWidth * 0.9}

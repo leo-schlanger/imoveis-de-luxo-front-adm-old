@@ -22,3 +22,12 @@ export const schemaCreateAdvertisement = Yup.object().shape({
   number: Yup.string(),
   complement: Yup.string(),
 });
+
+export const schemaCreatePlan = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório'),
+  description: Yup.string().notRequired(),
+  quantity_properties: Yup.number().required('Quantidade obrigatória'),
+  quantity_photos: Yup.number().required('Quantidade obrigatória'),
+  quantity_videos: Yup.number().required('Quantidade obrigatória'),
+  value: Yup.number().required('Valor obrigatório'),
+});
