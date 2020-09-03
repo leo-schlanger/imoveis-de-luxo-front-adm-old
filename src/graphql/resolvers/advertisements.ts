@@ -27,6 +27,39 @@ export const FIND_ADVERTISEMENTS = gql`
   }
 `;
 
+export const FIND_ADVERTISEMENT_BY_ID = gql`
+  query getAdvertisementById($id: String!) {
+    getAdvertisementById(id: $id) {
+      id
+      title
+      description
+      type
+      user {
+        id
+        name
+        creci
+        email
+        phone
+        type
+      }
+      property {
+        address {
+          country
+          state
+          postal_code
+          neighborhood
+          sub_neighborhood
+          address
+          number
+          complement
+        }
+        type
+        value
+      }
+    }
+  }
+`;
+
 export const DELETE_ADVERTISEMENT = gql`
   mutation deleteAdvertisement($id: String!) {
     deleteAdvertisement(id: $id)

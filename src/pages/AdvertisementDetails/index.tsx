@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import api, { Advertisement } from '../../services/api';
+import { useQuery } from '@apollo/react-hooks';
+import Header from '../../components/Header';
+import { IAdvertisement } from '../../graphql/entities/advertisements';
+import { FIND_ADVERTISEMENT_BY_ID } from '../../graphql/resolvers/advertisements';
 
 import './styles.css';
-import Header from '../../components/Header';
+
+interface IQueryData {
+  getAdvertisementById: IAdvertisement;
+}
 
 const AdvertisementDetails: React.FC = () => {
-  const [advertisement, setAdvertisement] = useState<Advertisement>();
+  const [advertisement, setAdvertisement] = useState<IAdvertisement>();
   const { id } = useParams<{ id: string }>();
+  const { data } = useQuery<IQueryData>(FIND_ADVERTISEMENT_BY_ID, {
+    variables: { id },
+  });
 
   useEffect(() => {
-    api
-      .get(`advertisements/${id}`)
-      .then((response) => setAdvertisement(response.data));
-  }, [id]);
+    setAdvertisement(data?.getAdvertisementById);
+  }, [data]);
 
   return (
     <div className="advertisement-details-container">
