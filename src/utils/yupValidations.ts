@@ -31,3 +31,21 @@ export const schemaCreatePlan = Yup.object().shape({
   quantity_videos: Yup.number().required('Quantidade obrigatória'),
   value: Yup.number().required('Valor obrigatório'),
 });
+
+export const schemaCreateUsers = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório'),
+  responsible: Yup.string().notRequired(),
+  description: Yup.string().notRequired(),
+  creci: Yup.string().notRequired(),
+  email: Yup.string().required('email obrigatório'),
+  phone: Yup.string().required('telefone obrigatório'),
+  secondary_phone: Yup.string().notRequired(),
+});
+
+// name: string;
+// responsible: string;
+// description: string;
+// creci: string;
+// email: string;
+// phone: string;
+// secondary_phone: string;

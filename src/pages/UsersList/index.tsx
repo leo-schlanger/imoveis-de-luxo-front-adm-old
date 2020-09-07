@@ -87,6 +87,7 @@ const UsersList: React.FC = () => {
   return (
     <div id="users-list-container">
       <Header />
+      <Link to="create-users">Cria novo usuário</Link>
       <Table
         list={data?.users.list}
         total={data?.users.total}

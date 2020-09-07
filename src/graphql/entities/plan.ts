@@ -7,3 +7,4 @@ export interface IPlan {
   quantity_videos: number;
   value: number;
 }
+

@@ -12,6 +12,7 @@ import PlanDetails from '../pages/PlanDetails';
 import AdvertisementDetails from '../pages/AdvertisementDetails';
 import CreateAdvertisement from '../pages/CreateAdvertisement';
 import CreatePlan from '../pages/CreatePlan';
+import CreateUsers from '../pages/CreateUsers';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -36,6 +37,7 @@ const Routes: React.FC = () => (
       component={AdvertisementDetails}
     />
     <Route path="/plans" exact isPrivate component={PlansList} />
+    <Route path="/create-users" exact isPrivate component={CreateUsers} />
     <Route path="/create-plan" exact isPrivate component={CreatePlan} />
     <Route path="/plans/:id" isPrivate component={PlanDetails} />
   </Switch>
