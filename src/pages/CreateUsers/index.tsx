@@ -44,7 +44,7 @@ const CreateUsers: React.FC = () => {
       console.log({ data });
       try {
         await createUser({
-          variables: {
+          variables:  {
             ...data,
           },
         });
