@@ -30,6 +30,15 @@
     "prettier"
   ],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-is-valid": [
+        "error",
+        {
+            "components": ["Link"],
+            "specialLink": ["hrefLeft", "hrefRight"],
+            "aspects": ["invalidHref", "preferButton"]
+        }
+    ],
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react/jsx-one-expression-per-line": "off",

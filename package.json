@@ -1,73 +1,52 @@
 {
-  "name": "imoveisdeluxo-adm",
+  "name": "imoveis-de-luxo-adm",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
-    "@apollo/client": "^3.1.4",
     "@apollo/react-hooks": "^4.0.0",
-    "@hookform/resolvers": "^0.1.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.1",
-    "@testing-library/user-event": "^12.1.3",
-    "@types/jest": "^26.0.13",
-    "@types/node": "^14.6.3",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
+    "@apollo/react-ssr": "^4.0.0",
+    "@chakra-ui/core": "^0.8.0",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "@vercel/node": "^1.8.4",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "axios": "^0.20.0",
+    "emotion-theming": "^10.0.27",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
-    "react": "^16.13.1",
-    "react-apollo": "^3.1.5",
-    "react-dom": "^16.13.1",
-    "react-hook-form": "^6.7.1",
-    "react-icons": "^3.11.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "react-spring": "^8.0.27",
-    "rsuite": "^4.8.1",
-    "typescript": "~4.0.2",
-    "uuidv4": "^6.2.3",
-    "yup": "^0.29.3"
+    "isomorphic-unfetch": "^3.1.0",
+    "js-cookie": "^2.2.1",
+    "mongodb": "^3.6.2",
+    "next": "9.5.5",
+    "prop-types": "^15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-icons": "^3.11.0"
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.5",
-    "@types/yup": "^0.29.6",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "eslint": "^7.8.1",
+    "@types/js-cookie": "^2.2.6",
+    "@types/mongodb": "^3.5.27",
+    "@types/node": "^14.11.8",
+    "@types/react": "^16.9.51",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "eslint": "6.8.0",
     "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-import-resolver-typescript": "^2.3.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "prettier": "^2.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
   }
 }
