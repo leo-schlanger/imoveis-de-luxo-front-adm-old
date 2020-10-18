@@ -146,7 +146,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
           backgroundColor="gray.400"
         >
           {pagination.map((item) => (
-            <option key={item} value={item}>
+            <option key={Math.random() * 100 + item} value={item}>
               {item}
             </option>
           ))}
@@ -170,11 +170,5 @@ export const TableRowsSkeleton: React.FC<TableRowsSkeletonProps> = ({
   for (let i = 0; i < rows; i++) {
     skeleton.push(fields);
   }
-  return (
-    <>
-      {skeleton.map((item) => (
-        <>{item}</>
-      ))}
-    </>
-  );
+  return <>{skeleton}</>;
 };

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Box, Button, Flex, Heading, IconButton, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import AlertDialog from '../../components/AlertDialog';
 import {
@@ -85,16 +85,26 @@ export default function Plans(): JSX.Element {
       <Table>
         <TableRows columns={headers.length}>
           {headers.map((element) => (
-            <TableColumnHeader>{element}</TableColumnHeader>
+            <TableColumnHeader key={`plan_${element}`}>
+              {element}
+            </TableColumnHeader>
           ))}
 
           {!loading ? (
             data.plans.map((plan) => {
               return (
-                <>
-                  <TableColumnField>{plan.name}</TableColumnField>
-                  <TableColumnField>{plan.value}</TableColumnField>
-                  <TableColumnField justifyContent="flex-end" padding="4px">
+                <Fragment key={`plans_${plan.id}`}>
+                  <TableColumnField key={`${plan.id}_${plan.name}`}>
+                    {plan.name}
+                  </TableColumnField>
+                  <TableColumnField key={`${plan.id}_${plan.value}`}>
+                    {plan.value}
+                  </TableColumnField>
+                  <TableColumnField
+                    key={`${plan.id}_options`}
+                    justifyContent="flex-end"
+                    padding="4px"
+                  >
                     <IconButton
                       icon="edit"
                       size="lg"
@@ -119,7 +129,7 @@ export default function Plans(): JSX.Element {
                       }}
                     />
                   </TableColumnField>
-                </>
+                </Fragment>
               );
             })
           ) : (

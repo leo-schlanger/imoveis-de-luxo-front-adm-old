@@ -24,19 +24,17 @@ export const CREATE_PLAN = gql`
     $quantity_videos: Int!
     $value: Float!
   ) {
-    mutation {
-      createPlan(
-        data: {
-          name: $name
-          description: $description
-          quantity_properties: $quantity_properties
-          quantity_photos: $quantity_photos
-          quantity_videos: $quantity_videos
-          value: $value
-        }
-      ) {
-        id
+    createPlan(
+      data: {
+        name: $name
+        description: $description
+        quantity_properties: $quantity_properties
+        quantity_photos: $quantity_photos
+        quantity_videos: $quantity_videos
+        value: $value
       }
+    ) {
+      id
     }
   }
 `;

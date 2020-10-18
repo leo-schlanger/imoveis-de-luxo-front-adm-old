@@ -11,7 +11,9 @@ import {
   Select,
   SimpleGrid,
   Heading,
+  useToast,
 } from '@chakra-ui/core';
+import { useRouter } from 'next/router';
 import {
   UserStatus,
   UserStatusDescription,
@@ -24,7 +26,7 @@ import { yupResolver } from '../../utils/yupResolver';
 import Input from '../../components/Input';
 import TopNavigation from '../../components/TopNavigation';
 
-interface ICreateUserData {
+interface CreateUserData {
   name: string;
   responsible: string;
   creci: string;
@@ -41,27 +43,43 @@ const userTypes = ['ADM', 'ADVERTISER', 'USER'] as const;
 const userStatus = ['NEW', 'ACTIVE', 'INACTIVE'] as const;
 
 const CreateUsers: React.FC = () => {
-  const { control, handleSubmit, errors } = useForm<ICreateUserData>({
+  const { control, handleSubmit, errors } = useForm<CreateUserData>({
     resolver: yupResolver(schemaCreateUsers),
   });
   const [createUser, { error }] = useMutation(CREATE_USER);
+  const router = useRouter();
+  const toast = useToast();
 
   const onSubmit = useCallback(
-    async (data: ICreateUserData): Promise<void> => {
-      // eslint-disable-next-line no-console
-      console.log({ data });
+    async (data: CreateUserData): Promise<void> => {
       try {
         await createUser({
           variables: {
             ...data,
           },
         });
+        toast({
+          position: 'top-right',
+          title: 'Cadastro de novo usuário realizado com sucesso!',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+        router.push('/users');
       } catch (err) {
+        toast({
+          position: 'top-right',
+          title: 'Erro ao tentar cadastrar novo usuário',
+          description: 'Verifique os campos necessários',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
         // eslint-disable-next-line no-console
         console.log({ error });
       }
     },
-    [createUser, error],
+    [createUser, error, router, toast],
   );
 
   return (

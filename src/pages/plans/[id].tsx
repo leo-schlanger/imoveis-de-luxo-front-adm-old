@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-export default function AdvertisementsDetails(): JSX.Element {
+export default function PlanDetails(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
 

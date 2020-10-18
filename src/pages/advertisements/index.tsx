@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import AlertDialog from '../../components/AlertDialog';
 import {
@@ -100,21 +100,41 @@ export default function Advertisements(): JSX.Element {
       <Table>
         <TableRows columns={headers.length}>
           {headers.map((element) => (
-            <TableColumnHeader>{element}</TableColumnHeader>
+            <TableColumnHeader key={`advertisement_${element}`}>
+              {element}
+            </TableColumnHeader>
           ))}
 
           {!loading ? (
             data.advertisements.list.map((advertisement) => {
               return (
-                <>
-                  <TableColumnField>{advertisement.id}</TableColumnField>
-                  <TableColumnField>{advertisement.title}</TableColumnField>
-                  <TableColumnField>{advertisement.type}</TableColumnField>
-                  <TableColumnField>
+                <Fragment key={`advertisement_${advertisement.id}`}>
+                  <TableColumnField key={advertisement.id}>
+                    {advertisement.id}
+                  </TableColumnField>
+                  <TableColumnField
+                    key={`${advertisement.id}_${advertisement.title}`}
+                  >
+                    {advertisement.title}
+                  </TableColumnField>
+                  <TableColumnField
+                    key={`${advertisement.id}_${advertisement.type}`}
+                  >
+                    {advertisement.type}
+                  </TableColumnField>
+                  <TableColumnField
+                    key={`${advertisement.id}_${advertisement.property.type}`}
+                  >
                     {advertisement.property.type}
                   </TableColumnField>
-                  <TableColumnField>{advertisement.user.name}</TableColumnField>
-                  <TableColumnField>
+                  <TableColumnField
+                    key={`${advertisement.id}_${advertisement.user.name}`}
+                  >
+                    {advertisement.user.name}
+                  </TableColumnField>
+                  <TableColumnField
+                    key={`${advertisement.id}_${advertisement.status}`}
+                  >
                     {advertisement.status ? (
                       <Tag size="lg" color="green.600" variantColor="green">
                         Ativo
@@ -125,7 +145,11 @@ export default function Advertisements(): JSX.Element {
                       </Tag>
                     )}
                   </TableColumnField>
-                  <TableColumnField justifyContent="flex-end" padding="4px">
+                  <TableColumnField
+                    key={`${advertisement.id}_options`}
+                    justifyContent="flex-end"
+                    padding="4px"
+                  >
                     <IconButton
                       icon="edit"
                       size="lg"
@@ -150,7 +174,7 @@ export default function Advertisements(): JSX.Element {
                       }}
                     />
                   </TableColumnField>
-                </>
+                </Fragment>
               );
             })
           ) : (

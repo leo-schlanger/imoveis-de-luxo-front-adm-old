@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import AlertDialog from '../../components/AlertDialog';
 import {
@@ -94,16 +94,22 @@ export default function Users(): JSX.Element {
       <Table>
         <TableRows columns={headers.length}>
           {headers.map((element) => (
-            <TableColumnHeader>{element}</TableColumnHeader>
+            <TableColumnHeader key={`user_${element}`}>
+              {element}
+            </TableColumnHeader>
           ))}
 
           {!loading ? (
             data.users.list.map((user) => {
               return (
-                <>
-                  <TableColumnField>{user.name}</TableColumnField>
-                  <TableColumnField>{user.email}</TableColumnField>
-                  <TableColumnField>
+                <Fragment key={`user_${user.id}`}>
+                  <TableColumnField key={`${user.id}_${user.name}`}>
+                    {user.name}
+                  </TableColumnField>
+                  <TableColumnField key={`${user.id}_${user.email}`}>
+                    {user.email}
+                  </TableColumnField>
+                  <TableColumnField key={`${user.id}_${user.status}`}>
                     {user.status === 'ACTIVE' ? (
                       <Tag size="lg" color="green.600" variantColor="green">
                         Ativo
@@ -118,14 +124,18 @@ export default function Users(): JSX.Element {
                       </Tag>
                     )}
                   </TableColumnField>
-                  <TableColumnField>
+                  <TableColumnField key={`${user.id}_${user.type}`}>
                     {user.type === 'ADM'
                       ? 'Administrador'
                       : user.type === 'ADVERTISER'
                       ? 'Anunciante'
                       : 'Usuário'}
                   </TableColumnField>
-                  <TableColumnField justifyContent="flex-end" padding="4px">
+                  <TableColumnField
+                    key={`${user.id}_options`}
+                    justifyContent="flex-end"
+                    padding="4px"
+                  >
                     <IconButton
                       icon="edit"
                       size="lg"
@@ -150,7 +160,7 @@ export default function Users(): JSX.Element {
                       }}
                     />
                   </TableColumnField>
-                </>
+                </Fragment>
               );
             })
           ) : (
