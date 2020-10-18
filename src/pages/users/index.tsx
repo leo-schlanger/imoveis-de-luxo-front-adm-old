@@ -1,8 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Box, Flex, Heading, IconButton, Tag } from '@chakra-ui/core';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  Tag,
+  Text,
+} from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FiPlus } from 'react-icons/fi';
 import AlertDialog from '../../components/AlertDialog';
 import {
   Table,
@@ -67,6 +76,21 @@ export default function Users(): JSX.Element {
           Usuários
         </Heading>
       </Box>
+      <Button
+        alignSelf="flex-end"
+        alignItems="center"
+        justifyContent="center"
+        marginRight="10vw"
+        marginY="16px"
+        onClick={() => {
+          router.push('users/create');
+        }}
+      >
+        <Text fontSize="16px" fontWeight="700">
+          Criar novo usuário
+        </Text>
+        <Box as={FiPlus} color="blue.500" size="32px" />
+      </Button>
       <Table>
         <TableRows columns={headers.length}>
           {headers.map((element) => (

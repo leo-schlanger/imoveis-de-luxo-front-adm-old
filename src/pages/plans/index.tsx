@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { Box, Flex, Heading, IconButton } from '@chakra-ui/core';
+import { Box, Button, Flex, Heading, IconButton, Text } from '@chakra-ui/core';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FiPlus } from 'react-icons/fi';
 import AlertDialog from '../../components/AlertDialog';
 import {
   Table,
@@ -66,6 +67,21 @@ export default function Plans(): JSX.Element {
           Planos
         </Heading>
       </Box>
+      <Button
+        alignSelf="flex-end"
+        alignItems="center"
+        justifyContent="center"
+        marginRight="10vw"
+        marginY="16px"
+        onClick={() => {
+          router.push('plans/create');
+        }}
+      >
+        <Text fontSize="16px" fontWeight="700">
+          Criar novo Plano
+        </Text>
+        <Box as={FiPlus} color="blue.500" size="32px" />
+      </Button>
       <Table>
         <TableRows columns={headers.length}>
           {headers.map((element) => (

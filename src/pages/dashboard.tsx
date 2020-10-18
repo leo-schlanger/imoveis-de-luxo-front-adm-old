@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/core';
-import { useRouter } from 'next/router';
 import TopNavigation from '../components/TopNavigation';
 
 export default function Home(): JSX.Element {

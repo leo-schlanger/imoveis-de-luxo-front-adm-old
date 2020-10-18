@@ -11,6 +11,7 @@ export default function SignInHome(): JSX.Element {
   const toast = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isSecret, setIsSecret] = useState(true);
 
   if (isAuthenticated) {
@@ -19,6 +20,7 @@ export default function SignInHome(): JSX.Element {
 
   async function handleSignIn(event: FormEvent): Promise<void> {
     event.preventDefault();
+    setLoading(true);
 
     try {
       await signIn({
@@ -44,6 +46,8 @@ export default function SignInHome(): JSX.Element {
       });
       // eslint-disable-next-line no-console
       console.log({ err });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -114,6 +118,8 @@ export default function SignInHome(): JSX.Element {
           height="50px"
           width="100%"
           borderRadius="sm"
+          isLoading={loading}
+          isDisabled={loading}
           marginTop={6}
           _hover={{ color: 'orange.900' }}
           _focus={{ color: 'orange.900' }}
